@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="ui-widget">
+            <div class="ui-state-error ui-corner-all" id="error-msg" style="padding: 0 .7em;">
+                <p>
+                    <span class="ui-icon ui-icon-alert"
+                        style="float: left; margin-right: .3em;"></span>
+                    <strong>Alert:</strong><span></span>
+                </p>
+            </div>
+            <div class="ui-state-active ui-corner-all" id="success-msg" style="padding: 0 .7em;">
+                <p>
+                    <span class="ui-icon ui-icon-info"
+                        style="float: left; margin-right: .3em;"></span>
+                    <strong>Succss:</strong><span></span>
+                </p>
+            </div>
+        </div>
+        <p>
+            <div class="center">
+                Hello <input type="text" class="add-item-input" value="" placeholder="Add hello" /><button class="add">+</button>
+            </div>
+        </p>
+        <ul id="sortable">
+            <!-- <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><input type="text" class="item-input" value="Item 1" /><button class="delete">Save</button><button class="delete">Delete</button></li> -->
+        </ul>
+
+        <script src="js/integration.js"></script>
+    </body>
+</html>

@@ -54,7 +54,7 @@ class PeopleController extends Controller
         $people->name = $request->get('name');
         $people->sort_order = (int) People::max('sort_order') + 1;
         $people->save();
-        return response()->json("Saved successfully");
+        return response()->json($people);
     }
 
     /**

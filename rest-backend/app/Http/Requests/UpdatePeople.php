@@ -25,10 +25,10 @@ class UpdatePeople extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => [
-            //     'required|unique:bl_people,name,'.$this->people->id,
-            //     "max:100"
-            // ],
+            'name' => [
+                'unique:bl_people,name,'.$this->people->id,
+                "max:100"
+            ],
             'sort_order' => 'integer|gt:0',
         ];
     }

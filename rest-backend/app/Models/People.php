@@ -16,7 +16,7 @@ class People extends Model
     protected $table = 'bl_people';
 
     /* @var array $editable */
-    protected $editable = ['sort_order'];
+    protected $editable = ['sort_order','name'];
 
     /**
      * Method to update the record while adjusting sort order
@@ -31,6 +31,7 @@ class People extends Model
             $maxSortOrder = People::max('sort_order');
             $requestSortOrder = ($requestSortOrder > $maxSortOrder) ? $maxSortOrder : $requestSortOrder;
             $this->adjustSortOrder($requestSortOrder);
+            $this->name = $request->name ?? $this->name;
             $this->sort_order = $requestSortOrder;
             $this->save();
         }
@@ -48,8 +49,8 @@ class People extends Model
             $this->adjustSortOrder($requestSortOrder);
             $this->sort_order = $requestSortOrder;
             $this->save();
-            $this->delete();
         }
+        $this->delete();
     }
 
     /**

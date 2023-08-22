@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PeopleController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,9 @@ Route::get("/test", function () {
 Route::get("/test/error", function () {
     throw new BadRequestHttpException("Test Error Trace");
 });
+
+Route::get("/test/error", function () {
+    throw new BadRequestHttpException("Test Error Trace");
+});
+
+Route::resource('peoples', PeopleController::class);

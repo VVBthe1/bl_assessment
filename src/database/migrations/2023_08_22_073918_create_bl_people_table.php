@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bl_people', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', '100')->unique();
-            $table->tinyInteger('sort_order');
+            $table->integer('sort_order');
             $table->softDeletes();
             $table->timestamps();
         });

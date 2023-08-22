@@ -24,7 +24,7 @@ class StorePeople extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:bl_people|max:100',
+            'name' => 'required|string',
         ];
     }
 }

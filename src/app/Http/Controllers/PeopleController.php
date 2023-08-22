@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePeople;
 use App\Http\Requests\UpdatePeople;
 use App\Models\People;
+use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class PeopleController extends Controller
 {
@@ -16,7 +18,7 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        return response()->json(People::all());
+        return response()->json(People::orderBy('sort_order', 'ASC')->get());
     }
 
     /**
@@ -37,7 +39,14 @@ class PeopleController extends Controller
      */
     public function store(StorePeople $request)
     {
-        $people = new People();
+        $people = People::withTrashed()->where('name', 'LIKE', $request->get('name'))->first();
+        if (!empty($people->deleted_at)) {
+            $people->restore();
+        } else if (!empty($people)) {
+            throw new HttpClientException('Name already exists');
+        } else {
+            $people = new People();
+        }
         $people->name = $request->get('name');
         $people->sort_order = (int) People::max('sort_order') + 1;
         $people->save();
@@ -77,7 +86,7 @@ class PeopleController extends Controller
     {
         DB::transaction(function () use ($people, $request) {
             $newSortOrder = $request->get('sort_order');
-            $people->updateDetails($request);
+            $people->updateRecord($request);
         });
         return response()->json("Saved successfully");
     }

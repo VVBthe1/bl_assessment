@@ -28,15 +28,22 @@ class People extends Model
     {
         $requestSortOrder = $request->get('sort_order');
         if ($requestSortOrder !== $this->sort_order) {
+            $maxSortOrder = People::max('sort_order');
+            $requestSortOrder = ($requestSortOrder > $maxSortOrder) ? $maxSortOrder : $requestSortOrder;
             $this->adjustSortOrder($requestSortOrder);
             $this->sort_order = $requestSortOrder;
             $this->save();
         }
     }
 
+    /**
+     * Deletes with sorting adjustment
+     *
+     * @return void
+     */
     public function deleteRecord()
     {
-        $requestSortOrder = People::max('sort_order') + 1;
+        $requestSortOrder = People::max('sort_order');
         if ($requestSortOrder !== $this->sort_order) {
             $this->adjustSortOrder($requestSortOrder);
             $this->sort_order = $requestSortOrder;
@@ -55,9 +62,6 @@ class People extends Model
     {
         $existingSortOrder = $this->sort_order;
         $operand = ($existingSortOrder < $requestSortOrder) ? -1 : 1; // deciding on whther to increment value or decrease
-
-        $maxSortOrder = People::max('sort_order');
-        $requestSortOrder = ($requestSortOrder > $maxSortOrder) ? $maxSortOrder : $requestSortOrder;
         if ($existingSortOrder > $requestSortOrder) { // if existing sort order is greater than requested sort order
             $resource = People::where('sort_order', '>=', $requestSortOrder)->where('sort_order', '<', $existingSortOrder);
         } else if ($existingSortOrder < $requestSortOrder) { // if existing sort order is greater than requested sort order

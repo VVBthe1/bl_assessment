@@ -12,8 +12,8 @@ RUN apk update && apk add \
     unzip \
     nano
 
-RUN docker-php-ext-configure mysql
-RUN docker-php-ext-install pdo pdo_mysql mysql zip exif pcntl
+RUN docker-php-ext-configure mysqli
+RUN docker-php-ext-install pdo pdo_mysql mysqli zip exif pcntl
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

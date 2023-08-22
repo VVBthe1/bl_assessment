@@ -31,10 +31,11 @@ $(function () {
 
 var loggedIn = false;
 var token = null;
+var api_url = 'http://localhost:8000/api';
 
 $.ajax({
     type: "POST",
-    url: "http://localhost:8000/api/login",
+    url: api_url + "/login",
     async: false,
     data: {
         "email": "assessment@gmail.com"
@@ -45,18 +46,13 @@ $.ajax({
         token = data.response.token;
         console.log(token);
     },
-    errorCallback: 'handleError',
 
 });
-
-function handleError(data) {
-    console.log(data);
-}
 
 function getList() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8000/api/peoples",
+        url: api_url + "/peoples",
         async: false,
         headers: {
             'Authorization': "Bearer " + token,
@@ -68,7 +64,6 @@ function getList() {
                 $('#sortable').append('<li class="ui-state-default" data-id="' + element.id + '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span> Hello  <input type="text" class="item-input" value="' + element.name + '" /><button class="save">Save</button><button class="delete">X</button></li>');
             });
         },
-        errorCallback: 'handleError',
 
     });
 }
@@ -78,7 +73,7 @@ getList() // calling item list function
 $("#sortable").on( "sortupdate", function( event, ui ) {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8000/api/peoples/" + ui.item.attr('data-id'),
+        url: api_url + "/peoples/" + ui.item.attr('data-id'),
         async: false,
         data: {
             sort_order: ui.item.index() + 1
@@ -92,7 +87,6 @@ $("#sortable").on( "sortupdate", function( event, ui ) {
             $("#success-msg").show();
             $("#success-msg").children('p').children('span').html('Saved successfully')
         },
-        errorCallback: 'handleError',
 
     });
 } );
@@ -101,7 +95,7 @@ $("#sortable .delete").click(function() {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8000/api/peoples/" + $(this).parent().attr('data-id'),
+        url: api_url + "/peoples/" + $(this).parent().attr('data-id'),
         async: false,
         data: {
             sort_order: $(this).parent().index() + 1
@@ -124,7 +118,7 @@ $("#sortable .delete").click(function() {
 $("#sortable .save").click(function() {
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8000/api/peoples/" + $(this).parent().attr('data-id'),
+        url: api_url + "/peoples/" + $(this).parent().attr('data-id'),
         async: false,
         data: {
             name: $(this).parent().children('.item-input').val(),
@@ -146,7 +140,7 @@ $("#sortable .save").click(function() {
 $(".add").click(function() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8000/api/peoples",
+        url: api_url + "/peoples",
         async: false,
         data: {
             name: $('.add-item-input').val(),
@@ -156,15 +150,13 @@ $(".add").click(function() {
         },
         dataType: 'json',
         success: function (data) {
-            $('.add-item-input').val('');
-            console.log(data.response);
             $('#sortable').append('<li class="ui-state-default" data-id="' + data.response.id + '"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span> Hello  <input type="text" class="item-input" value="' + data.response.name + '" /><button class="save">Save</button><button class="delete">X</button></li>');
 
             $("#error-msg").hide();
             $("#success-msg").show();
-            $("#success-msg").children('p').children('span').html('Saved successfully')
+            $("#success-msg").children('p').children('span').html('Saved successfully');
+            $('.add-item-input').val('');
         },
-        errorCallback: 'handleError',
 
     });
 });

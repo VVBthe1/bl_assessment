@@ -1,0 +1,8 @@
+FROM nginx:alpine
+
+WORKDIR /etc/nginx
+COPY ./nginx/fe.default.conf ./conf.d/default.conf
+COPY ./rest-backend/public/index.html /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT [ "nginx" ]
+CMD [ "-g", "daemon off;" ]

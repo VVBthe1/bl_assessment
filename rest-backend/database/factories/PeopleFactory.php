@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class PeopleFactory extends Factory
 {
+    static $order = 1;
     /**
      * Define the model's default state.
      *
@@ -16,8 +17,10 @@ class PeopleFactory extends Factory
      */
     public function definition()
     {
+        static $order = 1;
         return [
-            //
+            "name" => $this->faker->name(),
+            "sort_order" => self::$order++,
         ];
     }
 }

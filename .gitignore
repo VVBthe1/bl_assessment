@@ -21,3 +21,10 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+postgresql/
+.idea
+.idea/
+
+.php-cs-fixer.cache
+.vscode

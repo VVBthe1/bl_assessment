@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePeople;
 use App\Models\People;
 use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class PeopleController extends Controller
@@ -43,7 +44,10 @@ class PeopleController extends Controller
         if (!empty($people->deleted_at)) {
             $people->restore();
         } else if (!empty($people)) {
-            throw new HttpClientException('Name already exists');
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'name' => ['Name already taken'],
+            ]);
+            throw $error;
         } else {
             $people = new People();
         }

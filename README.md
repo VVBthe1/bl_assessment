@@ -11,9 +11,10 @@ Backend
 - generate environment key executing "php artisan key:generate"
 - migrate the db by executing "php artisan migrate"
 - run seeders by executing "php artisan db:seed". this will create a user that we use for login via the frontend app. as well will create some dummy data for the listing.
+- We are assuming that seeders will be run once only, multiple runs may corrupt the data or result in failure
 - navigate back to the project root directory
 - use PHP server command to start a development server by executing "php -S 0.0.0.0:8000 -t rest-backend/public/"
-- If you use another port then the frontend file endpoint needs to be modified to incorporate the same.
+- Note: If you use another port then the frontend file endpoint needs to be modified to incorporate the same.
 - By now our backend application should be up and running.
 
 Frontend
@@ -27,7 +28,7 @@ What is done
 - API validations
 - Migrations
 - Seeders
-- Frontedn to backed integeations for all the crud operations
+- Frontend to backed integrations for all the crud operations
 - sortable listing
 - docker and docker compose file for containerization
 

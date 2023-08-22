@@ -29,6 +29,7 @@ What is done
 - Seeders
 - Frontedn to backed integeations for all the crud operations
 - sortable listing
+- docker and docker compose file for containerization
 
 What was not done
-- dockerized application
+- working dockerized application. Was facing CORS and DB connection related issues.

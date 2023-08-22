@@ -9,13 +9,11 @@ RUN apk update && apk add \
     zip \
     libzip-dev \
     libpq-dev \
-    postgresql \
-    postgresql-client \
     unzip \
     nano
 
-RUN docker-php-ext-configure pgsql
-RUN docker-php-ext-install pdo pdo_pgsql pgsql zip exif pcntl
+RUN docker-php-ext-configure mysql
+RUN docker-php-ext-install pdo pdo_mysql mysql zip exif pcntl
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
